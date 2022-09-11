@@ -1,13 +1,16 @@
+import { Box, Flex } from '@chakra-ui/react';
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import React, { useEffect, useState, SyntheticEvent } from 'react';
 import * as io from "socket.io-client";
+import MessageList from '../components/MessageList';
 import styles from '../styles/Home.module.css'
+import { Message } from '../types';
 
 const Home: NextPage = () => {
   const [socket, setSocket] = useState<any>();
   const [message, setMessage] = useState<string>("");
-  const [receivedMessages, setReceivedMessages] = useState<string[]>([]);
+  const [receivedMessages, setReceivedMessages] = useState<Message[]>([]);
 
   useEffect(() => {
     const SOCKET_HOST: string = process.env.NEXT_PUBLIC_SOCKET_SERVER || "";
@@ -22,16 +25,20 @@ const Home: NextPage = () => {
     if (!socket) return;
 
     socket.on("receive_message", (data: any) => {
-      setReceivedMessages((prevMessages: string[]) => [
+      setReceivedMessages((prevMessages: Message[]) => [
         ...prevMessages,
-        data.message
+        {
+          id: prevMessages.length,
+          content: data.message,
+          fromSender: false
+        }
       ]);
     });
   }, [socket]);
 
   const sendMessage = (event: SyntheticEvent) => {
     event.preventDefault();
-    
+
     socket.emit("send_message", {
       message
     });
@@ -48,26 +55,30 @@ const Home: NextPage = () => {
       </Head>
 
       <main className={ styles.main }>
-        
-        <div className={ styles.chatbox }>
-          <form onSubmit={sendMessage}>
-            <input
-              type="text"
-              placeholder='Message...'
-              value={ message }
-              onChange={(event) => {
-                setMessage(event.target.value);
-              }}
-            />
-            <button type="submit">Send Message</button>
-          </form>
-        </div>
+        <Box width="100%" height="100%" paddingX="200px">
+          <Flex
+            direction="column"
+            alignItems="center"
+            backgroundColor="background"
+            height="100%"
+          >
+            <MessageList messages={ receivedMessages } />
 
-        <div className={ styles.messages }>
-          {receivedMessages.map((msg: string) => (
-            <div key={ msg }>{ msg }</div>
-          ))}
-        </div>
+            <div className={ styles.chatbox }>
+              <form onSubmit={sendMessage}>
+                <input
+                  type="text"
+                  placeholder='Message...'
+                  value={ message }
+                  onChange={(event) => {
+                    setMessage(event.target.value);
+                  }}
+                />
+                <button type="submit">Send Message</button>
+              </form>
+            </div>
+          </Flex>
+        </Box>
 
       </main>
 
