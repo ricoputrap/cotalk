@@ -1,0 +1,22 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.chatbox {
+  padding: 12px;
+  background-color: #B8BFC6;
+  border-radius: 8px;
+}
+
+.chatbox form {
+  display: flex;
+  column-gap: 4px;
+}
+
+.messages {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
