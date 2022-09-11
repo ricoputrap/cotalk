@@ -1,8 +1,20 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
+import { useEffect, useState } from 'react';
+import * as io from "socket.io-client";
 import styles from '../styles/Home.module.css'
 
 const Home: NextPage = () => {
+  const [socket, setSocket] = useState<any>();
+
+  useEffect(() => {
+    const clientSocket = io.connect("http://localhost:3002", {
+      transports: ["websocket"]
+    });
+
+    setSocket(clientSocket);
+  }, []);
+
   return (
     <div>
       <Head>
