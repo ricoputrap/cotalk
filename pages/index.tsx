@@ -1,11 +1,10 @@
 import { Box, Flex } from '@chakra-ui/react';
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import React from 'react';
 import ComposeBox from '../components/ComposeBox';
 import MessageList from '../components/MessageList';
-import { addMessage } from '../redux/slice';
+import useReceiveMessage from '../hooks/useReceiveMessage';
 import styles from '../styles/Home.module.css'
 
 type Props = {
@@ -13,15 +12,7 @@ type Props = {
 }
 
 const Home: NextPage<Props> = ({ socket }) => {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (!socket) return;
-
-    socket.on("receive_message", (data: any) => {
-      dispatch(addMessage(data.message))
-    });
-  }, [socket, dispatch]);
+  useReceiveMessage(socket);
 
   return (
     <div>
