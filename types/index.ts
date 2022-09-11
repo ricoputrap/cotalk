@@ -3,3 +3,7 @@ export type Message = {
   content: string;
   fromSender: boolean;
 }
+
+export type ChatState = {
+  messages: Message[];
+}

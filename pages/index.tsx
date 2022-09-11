@@ -2,15 +2,17 @@ import { Box, Flex } from '@chakra-ui/react';
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import * as io from "socket.io-client";
 import ComposeBox from '../components/ComposeBox';
 import MessageList from '../components/MessageList';
+import { addMessage } from '../redux/slice';
 import styles from '../styles/Home.module.css'
-import { Message } from '../types';
 
 const Home: NextPage = () => {
+  const dispatch = useDispatch();
+
   const [socket, setSocket] = useState<any>();
-  const [receivedMessages, setReceivedMessages] = useState<Message[]>([]);
 
   useEffect(() => {
     const SOCKET_HOST: string = process.env.NEXT_PUBLIC_SOCKET_SERVER || "";
@@ -25,16 +27,9 @@ const Home: NextPage = () => {
     if (!socket) return;
 
     socket.on("receive_message", (data: any) => {
-      setReceivedMessages((prevMessages: Message[]) => [
-        ...prevMessages,
-        {
-          id: prevMessages.length,
-          content: data.message,
-          fromSender: false
-        }
-      ]);
+      dispatch(addMessage(data.message))
     });
-  }, [socket]);
+  }, [socket, dispatch]);
 
   return (
     <div>
@@ -52,7 +47,7 @@ const Home: NextPage = () => {
             height="100%"
             padding="20px 20px 4px"
           >
-            <MessageList messages={ receivedMessages } />
+            <MessageList />
 
             <ComposeBox socket={socket} />
           </Flex>
