@@ -1,6 +1,10 @@
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
+import { Provider } from 'react-redux';
+import * as io from "socket.io-client";
+import store from '../redux/store';
+import { useEffect, useState } from 'react';
 
 function MyApp({ Component, pageProps }: AppProps) {
 
@@ -18,10 +22,22 @@ function MyApp({ Component, pageProps }: AppProps) {
     }
   });
 
+  const [socket, setSocket] = useState<any>();
+  useEffect(() => {
+    const SOCKET_HOST: string = process.env.NEXT_PUBLIC_SOCKET_SERVER || "";
+    const clientSocket = io.connect(SOCKET_HOST, {
+      transports: ["websocket"]
+    });
+
+    setSocket(clientSocket);
+  }, []);
+
   return (
-    <ChakraProvider theme={ theme }>
-      <Component {...pageProps} />
-    </ChakraProvider>
+    <Provider store={store}>
+      <ChakraProvider theme={ theme }>
+        <Component {...pageProps} socket={socket} />
+      </ChakraProvider>
+    </Provider>
   )
 }
 
