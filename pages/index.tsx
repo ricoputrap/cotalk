@@ -10,7 +10,8 @@ const Home: NextPage = () => {
   const [receivedMessages, setReceivedMessages] = useState<string[]>([]);
 
   useEffect(() => {
-    const clientSocket = io.connect("http://localhost:3002", {
+    const SOCKET_HOST: string = process.env.NEXT_PUBLIC_SOCKET_SERVER || "";
+    const clientSocket = io.connect(SOCKET_HOST, {
       transports: ["websocket"]
     });
 
