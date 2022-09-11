@@ -1,27 +1,19 @@
 import { Box, Flex } from '@chakra-ui/react';
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import * as io from "socket.io-client";
 import ComposeBox from '../components/ComposeBox';
 import MessageList from '../components/MessageList';
 import { addMessage } from '../redux/slice';
 import styles from '../styles/Home.module.css'
 
-const Home: NextPage = () => {
+type Props = {
+  socket: any;
+}
+
+const Home: NextPage<Props> = ({ socket }) => {
   const dispatch = useDispatch();
-
-  const [socket, setSocket] = useState<any>();
-
-  useEffect(() => {
-    const SOCKET_HOST: string = process.env.NEXT_PUBLIC_SOCKET_SERVER || "";
-    const clientSocket = io.connect(SOCKET_HOST, {
-      transports: ["websocket"]
-    });
-
-    setSocket(clientSocket);
-  }, []);
 
   useEffect(() => {
     if (!socket) return;
