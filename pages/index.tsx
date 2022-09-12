@@ -1,4 +1,4 @@
-import { Box, Flex } from '@chakra-ui/react';
+import { Box, Flex, useMediaQuery } from '@chakra-ui/react';
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import React from 'react';
@@ -17,6 +17,7 @@ type Props = {
 const Home: NextPage<Props> = ({ socket }) => {
   useReceiveMessage(socket);
   const { rooms } = useRooms(socket);
+  const [isLargerThan768] = useMediaQuery("(min-width: 768px)");
 
   return (
     <div>
@@ -31,9 +32,11 @@ const Home: NextPage<Props> = ({ socket }) => {
 
       <main className={ styles.main }>
         <Box width="100%" height="100%" display="flex">
-          <Box width="300px">
-           <ChatRooms rooms={ rooms } />
-          </Box>
+          {isLargerThan768 && (
+            <Box width="300px" >
+              <ChatRooms rooms={ rooms } />
+            </Box>
+          )}
 
           <Flex
             direction="column"
