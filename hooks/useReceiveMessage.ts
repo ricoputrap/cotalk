@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { useAppDispatch } from '../redux/hooks';
 import { addMessageReceived } from '../redux/slice';
-import { SocketClient } from '../types';
+import { MessageSent, SocketClient } from '../types';
 
 /**
  * A custom hook to init a listener
@@ -14,8 +14,8 @@ const useReceiveMessage = (socket: SocketClient): void => {
   useEffect(() => {
     if (!socket) return;
 
-    socket.on("receive_message", (data: any) => {
-      dispatch(addMessageReceived(data.message))
+    socket.on("receive_message", (data: MessageSent) => {
+      dispatch(addMessageReceived(data))
     });
   }, [socket, dispatch]);
 }
