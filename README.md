@@ -7,9 +7,9 @@ A simple chat app that allows you to talk to your coworkers even if you are sepa
 - TypeScript
 
 ### Roadmap
-- [ ] Phase 1
+- [x] Phase 1
   - [x] Send a message to another connected clients
-  - [ ] Beautiful UI for the sender and receiver's message bubles
+  - [x] Beautiful UI for the sender and receiver's message bubles
 - [ ] Phase 2
   - [ ] Join and have a talk in a chat room
 - [ ] Phase 3
