@@ -2,13 +2,14 @@ import { Box, Flex } from '@chakra-ui/react';
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import React from 'react';
+import { Socket } from 'socket.io-client';
 import ComposeBox from '../components/ComposeBox';
 import MessageList from '../components/MessageList';
 import useReceiveMessage from '../hooks/useReceiveMessage';
 import styles from '../styles/Home.module.css'
 
 type Props = {
-  socket: any;
+  socket: Socket;
 }
 
 const Home: NextPage<Props> = ({ socket }) => {
