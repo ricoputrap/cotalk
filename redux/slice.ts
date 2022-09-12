@@ -1,5 +1,5 @@
 import { createSlice, Draft, PayloadAction } from "@reduxjs/toolkit";
-import { ChatRoom, Message } from "../types";
+import { ChatRoom, Message, MessageSent } from "../types";
 import initialState from "./initialState";
 import { RootState } from "./store";
 
@@ -7,18 +7,18 @@ const slice = createSlice({
   name: "chat",
   initialState,
   reducers: {
-    addMessageReceived: (state, action: PayloadAction<string>) => {
-      const activeRoomID: string = state.activeRoomID;
+    addMessageReceived: (state, action: PayloadAction<MessageSent>) => {
+      const { message, room: roomID } = action.payload;
 
-      const messages: Message[] = state.messages[activeRoomID] || [];
+      const messages: Message[] = state.messages[roomID] || [];
       const newMessage: Message = {
         id: messages.length,
-        content: action.payload,
+        content: message,
         fromSender: false
       }
 
       const updatedMessages = [...messages, newMessage];
-      state.messages[activeRoomID] = updatedMessages;
+      state.messages[roomID] = updatedMessages;
     },
 
     addMessageSent: (state, action: PayloadAction<string>) => {

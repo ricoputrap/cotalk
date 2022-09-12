@@ -1,5 +1,10 @@
 import { Socket } from "socket.io-client";
 
+export type MessageSent = {
+  message: string;
+  room: string;
+}
+
 export type Message = {
   id: number;
   content: string;
