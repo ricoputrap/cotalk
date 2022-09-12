@@ -12,9 +12,10 @@ const MessageItem: React.FC<Props> = ({ content, fromSender }) => {
       width="fit-content"
       padding="12px"
       maxWidth="60%"
-      background="light"
+      background={ fromSender ? "brand" : "light" }
+      color={ fromSender ? "light" : "dark" }
       borderRadius="12px"
-      alignSelf={fromSender ? "end" : "start"}
+      alignSelf={ fromSender ? "end" : "start" }
     >
       { content }
     </Box>
