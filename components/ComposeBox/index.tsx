@@ -1,8 +1,9 @@
 import { Box, Button, Input, InputGroup, InputRightElement } from '@chakra-ui/react'
 import React, { useState } from 'react'
+import { SocketClient } from '../../types';
 
 type Props = {
-  socket: any;
+  socket: SocketClient;
 }
 
 const ComposeBox: React.FC<Props> = ({ socket }) => {
@@ -11,6 +12,8 @@ const ComposeBox: React.FC<Props> = ({ socket }) => {
 
   const sendMessage = (event: React.SyntheticEvent) => {
     event.preventDefault();
+
+    if (!socket) return;
 
     socket.emit("send_message", {
       message

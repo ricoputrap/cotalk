@@ -1,3 +1,5 @@
+import { Socket } from "socket.io-client";
+
 export type Message = {
   id: number;
   content: string;
@@ -5,5 +7,8 @@ export type Message = {
 }
 
 export type ChatState = {
+  socket?: Socket;
   messages: Message[];
 }
+
+export type SocketClient = Socket | undefined;

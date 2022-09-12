@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react'
 import { io, Socket } from "socket.io-client";
+import { SocketClient } from '../types';
 
 /**
  * A custom hook to init a connection to the socket server
  * @returns the instance of socket client
  */
-const useSocketClient = () => {
+const useSocketClient = (): SocketClient => {
   const [socket, setSocket] = useState<Socket>();
   useEffect(() => {
     const SOCKET_HOST: string = process.env.NEXT_PUBLIC_SOCKET_SERVER || "";
