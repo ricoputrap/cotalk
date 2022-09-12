@@ -1,7 +1,7 @@
 import { ChatState } from "../types";
 
 const initialState: ChatState = {
-  messages: [],
+  messages: {},
 
   activeRoomID: "1",
   rooms: [
