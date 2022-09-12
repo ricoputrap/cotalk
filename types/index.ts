@@ -10,4 +10,10 @@ export type ChatState = {
   messages: Message[];
 }
 
+export type ChatRoom = {
+  id: string;
+  name: string;
+  isActive: boolean;
+}
+
 export type SocketClient = Socket | undefined;
