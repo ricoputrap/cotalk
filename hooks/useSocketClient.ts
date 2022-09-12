@@ -7,6 +7,15 @@ import { SocketClient } from '../types';
  * @returns the instance of socket client
  */
 const useSocketClient = (): SocketClient => {
+
+  /**
+   * Note:
+   * Redux can't store a non-serializable object.
+   * So the `socket` instance will be distributed
+   * through props.
+   * 
+   * Discussion: https://stackoverflow.com/a/61706168
+   */
   const [socket, setSocket] = useState<Socket>();
   useEffect(() => {
     const SOCKET_HOST: string = process.env.NEXT_PUBLIC_SOCKET_SERVER || "";

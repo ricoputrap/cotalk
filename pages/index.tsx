@@ -5,7 +5,6 @@ import React from 'react';
 import ComposeBox from '../components/ComposeBox';
 import MessageList from '../components/MessageList';
 import useReceiveMessage from '../hooks/useReceiveMessage';
-import useSocket from '../hooks/useSocket';
 import styles from '../styles/Home.module.css'
 import { SocketClient } from '../types';
 
@@ -13,8 +12,7 @@ type Props = {
   socket: SocketClient;
 }
 
-const Home: NextPage<Props> = ({ socket: socketClient }) => {
-  const socket: SocketClient = useSocket(socketClient);
+const Home: NextPage<Props> = ({ socket }) => {
   useReceiveMessage(socket);
 
   return (

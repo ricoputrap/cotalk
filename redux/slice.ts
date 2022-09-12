@@ -7,11 +7,6 @@ const slice = createSlice({
   name: "chat",
   initialState,
   reducers: {
-    setSocket: (state, action: PayloadAction<any>) => {
-      if (state.socket) return;
-      state.socket = action.payload;
-    },
-
     addMessage: (state, action: PayloadAction<string>) => {
       const newMessage: Message = {
         id: state.messages.length,
@@ -23,9 +18,8 @@ const slice = createSlice({
   }
 });
 
-export const { addMessage, setSocket } = slice.actions;
+export const { addMessage } = slice.actions;
 
 export const selectMessages = (state: RootState) => state.messageReducer.messages
-export const selectSocket = (state: RootState) => state.messageReducer.socket;
 
 export default slice.reducer;

@@ -7,7 +7,6 @@ export type Message = {
 }
 
 export type ChatState = {
-  socket?: Socket;
   messages: Message[];
 }
 
