@@ -14,6 +14,11 @@ const useSocketClient = () => {
     });
 
     setSocket(clientSocket);
+
+    // close the connection
+    return () => {
+      if (clientSocket) clientSocket.close();
+    }
   }, []);
 
   return socket;
