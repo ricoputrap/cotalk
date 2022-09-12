@@ -1,22 +1,30 @@
 import { Box, Button, Input, InputGroup, InputRightElement } from '@chakra-ui/react'
 import React, { useState } from 'react'
+import { useAppDispatch } from '../../redux/hooks';
+import { addMessageSent } from '../../redux/slice';
+import { SocketClient } from '../../types';
 
 type Props = {
-  socket: any;
+  socket: SocketClient;
 }
 
 const ComposeBox: React.FC<Props> = ({ socket }) => {
 
+  const dispatch = useAppDispatch();
   const [message, setMessage] = useState<string>("");
 
   const sendMessage = (event: React.SyntheticEvent) => {
     event.preventDefault();
 
+    if (!socket) return;
+
     socket.emit("send_message", {
       message
     });
 
+    dispatch(addMessageSent(message));
     setMessage("");
+
   }
 
   return (

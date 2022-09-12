@@ -6,9 +6,10 @@ import ComposeBox from '../components/ComposeBox';
 import MessageList from '../components/MessageList';
 import useReceiveMessage from '../hooks/useReceiveMessage';
 import styles from '../styles/Home.module.css'
+import { SocketClient } from '../types';
 
 type Props = {
-  socket: any;
+  socket: SocketClient;
 }
 
 const Home: NextPage<Props> = ({ socket }) => {

@@ -13,7 +13,8 @@ const MessageList: React.FC = () => {
       { messages.map(msg => (
         <MessageItem
           key={ msg.id }
-          message={ msg }
+          content={ msg.content }
+          fromSender={ msg.fromSender }
         />
       ))}
     </Stack>
