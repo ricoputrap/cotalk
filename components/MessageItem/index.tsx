@@ -1,12 +1,12 @@
 import { Box } from '@chakra-ui/react';
 import React from 'react'
-import { Message } from '../../types'
 
 type Props = {
-  message: Message;
+  content: string;
+  fromSender: boolean;
 }
 
-const MessageItem: React.FC<Props> = ({ message }) => {
+const MessageItem: React.FC<Props> = ({ content, fromSender }) => {
   return (
     <Box
       width="fit-content"
@@ -14,8 +14,9 @@ const MessageItem: React.FC<Props> = ({ message }) => {
       maxWidth="60%"
       background="light"
       borderRadius="12px"
+      alignSelf={fromSender ? "end" : "start"}
     >
-      { message.content }
+      { content }
     </Box>
   )
 }

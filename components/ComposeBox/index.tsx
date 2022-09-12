@@ -1,5 +1,7 @@
 import { Box, Button, Input, InputGroup, InputRightElement } from '@chakra-ui/react'
 import React, { useState } from 'react'
+import { useAppDispatch } from '../../redux/hooks';
+import { addMessageSent } from '../../redux/slice';
 import { SocketClient } from '../../types';
 
 type Props = {
@@ -8,6 +10,7 @@ type Props = {
 
 const ComposeBox: React.FC<Props> = ({ socket }) => {
 
+  const dispatch = useAppDispatch();
   const [message, setMessage] = useState<string>("");
 
   const sendMessage = (event: React.SyntheticEvent) => {
@@ -19,7 +22,9 @@ const ComposeBox: React.FC<Props> = ({ socket }) => {
       message
     });
 
+    dispatch(addMessageSent(message));
     setMessage("");
+
   }
 
   return (
