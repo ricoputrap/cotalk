@@ -1,7 +1,7 @@
 import { Box, Button, Input, InputGroup, InputRightElement } from '@chakra-ui/react'
 import React, { useState } from 'react'
-import { useAppDispatch } from '../../redux/hooks';
-import { addMessageSent } from '../../redux/slice';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { addMessageSent, selectActiveRoomID } from '../../redux/slice';
 import { SocketClient } from '../../types';
 
 type Props = {
@@ -11,6 +11,7 @@ type Props = {
 const ComposeBox: React.FC<Props> = ({ socket }) => {
 
   const dispatch = useAppDispatch();
+  const activeRoomID: string = useAppSelector(selectActiveRoomID);
   const [message, setMessage] = useState<string>("");
 
   const sendMessage = (event: React.SyntheticEvent) => {
@@ -19,7 +20,8 @@ const ComposeBox: React.FC<Props> = ({ socket }) => {
     if (!socket) return;
 
     socket.emit("send_message", {
-      message
+      message,
+      room: activeRoomID
     });
 
     dispatch(addMessageSent(message));

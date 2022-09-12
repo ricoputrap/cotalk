@@ -6,24 +6,17 @@ import ChatRooms from '../components/ChatRooms';
 import ComposeBox from '../components/ComposeBox';
 import MessageList from '../components/MessageList';
 import useReceiveMessage from '../hooks/useReceiveMessage';
+import useRooms from '../hooks/useRooms';
 import styles from '../styles/Home.module.css'
-import { ChatRoom, SocketClient } from '../types';
+import { SocketClient } from '../types';
 
 type Props = {
   socket: SocketClient;
 }
 
-const chatRooms: ChatRoom[] = [
-  { id: "1", name: "Room 1", isActive: true },
-  { id: "2", name: "Room 2", isActive: false },
-  { id: "3", name: "Room 3", isActive: false },
-  { id: "4", name: "Room 4", isActive: false },
-  { id: "5", name: "Room 5", isActive: false },
-  { id: "6", name: "Room 6", isActive: false },
-]
-
 const Home: NextPage<Props> = ({ socket }) => {
   useReceiveMessage(socket);
+  const { rooms } = useRooms(socket);
 
   return (
     <div>
@@ -39,7 +32,7 @@ const Home: NextPage<Props> = ({ socket }) => {
       <main className={ styles.main }>
         <Box width="100%" height="100%" display="flex">
           <Box width="300px">
-           <ChatRooms rooms={ chatRooms } />
+           <ChatRooms rooms={ rooms } />
           </Box>
 
           <Flex

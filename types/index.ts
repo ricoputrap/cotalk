@@ -6,14 +6,16 @@ export type Message = {
   fromSender: boolean;
 }
 
-export type ChatState = {
-  messages: Message[];
-}
-
 export type ChatRoom = {
   id: string;
   name: string;
   isActive: boolean;
+}
+
+export type ChatState = {
+  messages: Message[];
+  activeRoomID: string;
+  rooms: ChatRoom[];
 }
 
 export type SocketClient = Socket | undefined;
