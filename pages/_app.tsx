@@ -2,12 +2,12 @@ import '../styles/globals.css'
 import type { AppProps } from 'next/app'
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import { Provider } from 'react-redux';
-import * as io from "socket.io-client";
 import store from '../redux/store';
-import { useEffect, useState } from 'react';
+import useSocketClient from '../hooks/useSocketClient';
 
 function MyApp({ Component, pageProps }: AppProps) {
 
+  const socket = useSocketClient();
   const theme = extendTheme({
     fonts: {
       heading: `'Fira Code', monospace`,
@@ -21,16 +21,6 @@ function MyApp({ Component, pageProps }: AppProps) {
       light: "#FFFFFF"
     }
   });
-
-  const [socket, setSocket] = useState<any>();
-  useEffect(() => {
-    const SOCKET_HOST: string = process.env.NEXT_PUBLIC_SOCKET_SERVER || "";
-    const clientSocket = io.connect(SOCKET_HOST, {
-      transports: ["websocket"]
-    });
-
-    setSocket(clientSocket);
-  }, []);
 
   return (
     <Provider store={store}>
