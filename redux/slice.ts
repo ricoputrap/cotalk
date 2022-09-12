@@ -8,22 +8,31 @@ const slice = createSlice({
   initialState,
   reducers: {
     addMessageReceived: (state, action: PayloadAction<string>) => {
+      const activeRoomID: string = state.activeRoomID;
+
+      const messages: Message[] = state.messages[activeRoomID] || [];
       const newMessage: Message = {
-        id: state.messages.length,
+        id: messages.length,
         content: action.payload,
         fromSender: false
       }
-      state.messages = [...state.messages, newMessage]
+
+      const updatedMessages = [...messages, newMessage];
+      state.messages[activeRoomID] = updatedMessages;
     },
 
     addMessageSent: (state, action: PayloadAction<string>) => {
+      const activeRoomID: string = state.activeRoomID;
+
+      const messages: Message[] = state.messages[activeRoomID] || [];
       const newMessage: Message = {
-        id: state.messages.length,
+        id: messages.length,
         content: action.payload,
         fromSender: true
       }
 
-      state.messages = [...state.messages, newMessage]
+      const updatedMessages = [...messages, newMessage];
+      state.messages[activeRoomID] = updatedMessages;
     },
 
     joinRoom: (state, action: PayloadAction<string>) => {
@@ -35,13 +44,18 @@ const slice = createSlice({
       rooms[newActiveRoomIndex].isActive = true;
 
       state.rooms = rooms;
+      state.activeRoomID = action.payload;
     }
   }
 });
 
 export const { addMessageReceived, addMessageSent, joinRoom } = slice.actions;
 
-export const selectMessages = (state: RootState) => state.messageReducer.messages;
+export const selectMessages = (state: RootState): Message[] => {
+  const activeRoomID: string = state.messageReducer.activeRoomID;  
+  const messages: Message[] = state.messageReducer.messages[activeRoomID] || [];
+  return messages;
+};
 export const selectRooms = (state: RootState) => state.messageReducer.rooms;
 export const selectActiveRoomID = (state: RootState) => state.messageReducer.activeRoomID;
 

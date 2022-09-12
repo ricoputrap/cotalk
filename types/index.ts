@@ -6,6 +6,10 @@ export type Message = {
   fromSender: boolean;
 }
 
+export type MessagePerRoom = {
+  [roomID: string]: Message[];
+}
+
 export type ChatRoom = {
   id: string;
   name: string;
@@ -13,7 +17,7 @@ export type ChatRoom = {
 }
 
 export type ChatState = {
-  messages: Message[];
+  messages: MessagePerRoom;
   activeRoomID: string;
   rooms: ChatRoom[];
 }

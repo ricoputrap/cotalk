@@ -2,7 +2,11 @@ import { Box, Flex, Heading } from '@chakra-ui/react';
 import React from 'react'
 import { ChatRoom } from '../../types';
 
-const ChatRoomItem: React.FC<ChatRoom> = ({ id, name, isActive}) => {
+interface Props extends ChatRoom {
+  join: (roomID: string) => void;
+}
+
+const ChatRoomItem: React.FC<Props> = ({ id, name, isActive, join }) => {
   return (
     <Flex
       columnGap="20px"
@@ -14,6 +18,7 @@ const ChatRoomItem: React.FC<ChatRoom> = ({ id, name, isActive}) => {
         background: "gray.100",
         cursor: "pointer"
       }}
+      onClick={() => join(id)}
     >
       <Box
         width="60px"

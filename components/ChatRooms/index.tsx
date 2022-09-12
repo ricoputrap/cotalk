@@ -1,5 +1,6 @@
 import { Stack } from '@chakra-ui/react'
 import React from 'react'
+import useRooms from '../../hooks/useRooms';
 import { ChatRoom } from '../../types'
 import ChatRoomItem from '../ChatRoomItem';
 
@@ -8,6 +9,8 @@ type Props = {
 }
 
 const ChatRooms: React.FC<Props> = ({ rooms }) => {
+  const { joinRoom } = useRooms();
+
   return (
     <Stack rowGap={0}>
       { rooms.map(room => (
@@ -16,6 +19,7 @@ const ChatRooms: React.FC<Props> = ({ rooms }) => {
           id={ room.id }
           name={ room.name }
           isActive={ room.isActive }
+          join={ joinRoom }
         />
       ))}
     </Stack>
