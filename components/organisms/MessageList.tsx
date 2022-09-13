@@ -3,7 +3,7 @@ import React from 'react'
 import { useAppSelector } from '../../redux/hooks';
 import { selectMessages } from '../../redux/slice';
 import { Message } from '../../types'
-import MessageItem from '../MessageItem';
+import MessageItem from '../atoms/MessageItem';
 
 const MessageList: React.FC = () => {
   const messages: Message[] = useAppSelector(selectMessages);

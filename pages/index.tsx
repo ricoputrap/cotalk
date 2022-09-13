@@ -4,7 +4,7 @@ import Head from 'next/head'
 import React from 'react';
 import ChatRooms from "../components/organisms/ChatRooms";
 import ComposeBox from '../components/ComposeBox';
-import MessageList from '../components/MessageList';
+import MessageList from '../components/organisms/MessageList';
 import useReceiveMessage from '../hooks/useReceiveMessage';
 import useRooms from '../hooks/useRooms';
 import styles from '../styles/Home.module.css'
