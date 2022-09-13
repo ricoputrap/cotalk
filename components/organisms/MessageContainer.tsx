@@ -1,7 +1,7 @@
 import { Flex } from '@chakra-ui/react';
 import React from 'react'
 import { SocketClient } from '../../types'
-import ComposeBox from '../ComposeBox';
+import ComposeBox from '../molecules/ComposeBox';
 import MessageList from './MessageList';
 
 type Props = {
