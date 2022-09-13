@@ -19,7 +19,8 @@ function MyApp({ Component, pageProps }: AppProps) {
       dark: "#1E293B",
       mid: "#B8BFC6",
       background: "#F0F0F0",
-      light: "#FFFFFF"
+      light: "#FFFFFF",
+      red: "#C8423B"
     }
   });
 

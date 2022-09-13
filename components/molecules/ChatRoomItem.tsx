@@ -11,6 +11,7 @@ interface Props extends ChatRoom {
 const ChatRoomItem: React.FC<Props> = ({ id, name, isActive, join }) => {
   return (
     <Flex
+      height="80px"
       columnGap="20px"
       alignItems="center"
       background={ isActive ? "brand !important" : "transparent" }
