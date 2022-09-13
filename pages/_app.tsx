@@ -15,6 +15,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     },
     colors: {
       brand: "#7E81FF",
+      brandDark: "#5F62F4",
       dark: "#1E293B",
       mid: "#B8BFC6",
       background: "#F0F0F0",
