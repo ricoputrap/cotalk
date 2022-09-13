@@ -13,9 +13,10 @@ const ChatRoomItem: React.FC<Props> = ({ id, name, isActive, join }) => {
     <Flex
       columnGap="20px"
       alignItems="center"
-      background={ isActive ? "gray.100" : "transparent" }
-      padding="10px 20px"
+      background={ isActive ? "brand !important" : "transparent" }
+      padding="10px"
       margin="0 !important"
+      borderRadius="12px"
       _hover={{
         background: "gray.100",
         cursor: "pointer"
@@ -23,7 +24,10 @@ const ChatRoomItem: React.FC<Props> = ({ id, name, isActive, join }) => {
       onClick={() => join(id)}
     >
       <ProfilePicture />
-      <ChatRoomItemDetails name={ name } />
+      <ChatRoomItemDetails
+        name={ name }
+        isActive={ isActive }
+      />
     </Flex>
   )
 }

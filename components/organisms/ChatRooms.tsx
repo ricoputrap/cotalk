@@ -12,7 +12,7 @@ const ChatRooms: React.FC<Props> = ({ rooms }) => {
   const { joinRoom } = useRooms();
 
   return (
-    <Stack rowGap={0}>
+    <Stack rowGap={0} padding="20px">
       { rooms.map(room => (
         <ChatRoomItem
           key={ room.id }

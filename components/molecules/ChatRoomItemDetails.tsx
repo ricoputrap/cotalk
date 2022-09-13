@@ -3,12 +3,18 @@ import React from 'react'
 
 type Props = {
   name: string;
+  isActive: boolean;
 }
 
-const ChatRoomItemDetails: React.FC<Props> = ({ name }) => {
+const ChatRoomItemDetails: React.FC<Props> = ({ name, isActive }) => {
   return (
     <Box>
-      <Heading size="sm" color="dark">{ name }</Heading>
+      <Heading
+        size="sm"
+        color={ isActive ? "light" : "dark" }
+      >
+        { name }
+      </Heading>
     </Box>
   )
 }
