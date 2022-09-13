@@ -26,6 +26,7 @@ const ChatRoomItem: React.FC<Props> = ({ id, name, isActive, join }) => {
     >
       <ProfilePicture />
       <ChatRoomItemDetails
+        id={ id }
         name={ name }
         isActive={ isActive }
       />

@@ -1,13 +1,18 @@
 import { Box, Heading } from '@chakra-ui/react'
-import React from 'react'
+import React, { useMemo } from 'react'
+import useTotalNewMessages from '../../hooks/useTotalNewMessages';
 import RedCircle from '../atoms/RedCircle';
 
 type Props = {
+  id: string;
   name: string;
   isActive: boolean;
 }
 
-const ChatRoomItemDetails: React.FC<Props> = ({ name, isActive }) => {
+const ChatRoomItemDetails: React.FC<Props> = ({ id, name, isActive }) => {
+  const totalNewMessages: number = useTotalNewMessages(id);
+  const showTotalNewMsg: boolean = useMemo(() => totalNewMessages > 0, [totalNewMessages])
+
   return (
     <Box
       display="flex"
@@ -26,7 +31,9 @@ const ChatRoomItemDetails: React.FC<Props> = ({ name, isActive }) => {
       </Box>
 
       <Box>
-        <RedCircle>12</RedCircle>
+        { showTotalNewMsg && (
+          <RedCircle>{ totalNewMessages }</RedCircle>
+        )}
       </Box>
 
     </Box>
