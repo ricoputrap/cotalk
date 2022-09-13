@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { addMessageSent, selectActiveRoomID } from '../../redux/slice';
 import { SocketClient } from '../../types';
+import { AiOutlineSend } from "react-icons/ai";
 
 type Props = {
   socket: SocketClient;
@@ -63,8 +64,11 @@ const ComposeBox: React.FC<Props> = ({ socket }) => {
               paddingX="12px"
               borderRadius="100%"
               type='submit'
+              _hover={{
+                backgroundColor: "brandDark"
+              }}
             >
-              S
+              <AiOutlineSend />
             </Button>
           </InputRightElement>
         </InputGroup>

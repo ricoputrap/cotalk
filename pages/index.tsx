@@ -1,14 +1,13 @@
-import { Box, Flex, useMediaQuery } from '@chakra-ui/react';
+import { Box, useMediaQuery } from '@chakra-ui/react';
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import React from 'react';
-import ChatRooms from '../components/ChatRooms';
-import ComposeBox from '../components/ComposeBox';
-import MessageList from '../components/MessageList';
+import ChatRooms from "../components/organisms/ChatRooms";
 import useReceiveMessage from '../hooks/useReceiveMessage';
 import useRooms from '../hooks/useRooms';
 import styles from '../styles/Home.module.css'
 import { SocketClient } from '../types';
+import MessageContainer from '../components/organisms/MessageContainer';
 
 type Props = {
   socket: SocketClient;
@@ -38,17 +37,7 @@ const Home: NextPage<Props> = ({ socket }) => {
             </Box>
           )}
 
-          <Flex
-            direction="column"
-            backgroundColor="background"
-            height="100%"
-            padding="20px 20px 4px"
-            flex={1}
-          >
-            <MessageList />
-
-            <ComposeBox socket={socket} />
-          </Flex>
+          <MessageContainer socket={ socket } />
         </Box>
 
       </main>

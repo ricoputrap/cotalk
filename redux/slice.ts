@@ -58,5 +58,6 @@ export const selectMessages = (state: RootState): Message[] => {
 };
 export const selectRooms = (state: RootState) => state.messageReducer.rooms;
 export const selectActiveRoomID = (state: RootState) => state.messageReducer.activeRoomID;
+export const selectMessagePerRoom = (state: RootState) => state.messageReducer.messages;
 
 export default slice.reducer;

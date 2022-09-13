@@ -6,13 +6,16 @@ import { ChatRoom, SocketClient } from "../types";
 const useRooms = (socket: SocketClient = undefined) => {
   const dispatch = useAppDispatch();
   const rooms: ChatRoom[] = useAppSelector(selectRooms);
-  const activeRoomID: string = useAppSelector(selectActiveRoomID);
 
+  // init a socket connection to all joined rooms
+  // all joined rooms will be displayed on the screen
   useEffect(() => {
     if (!socket) return;
 
-    socket.emit("join_room", activeRoomID);
-  }, [activeRoomID, socket]);
+    rooms.forEach(room => {
+      socket.emit("join_room", room.id);
+    });
+  }, [rooms, socket]);
 
   const joinRoom = (roomID: string) => {
     dispatch(joinRoomAction(roomID));
