@@ -10,8 +10,11 @@ A simple chat app that allows you to talk to your coworkers even if you are sepa
 - [x] Phase 1
   - [x] Send a message to another connected clients
   - [x] Beautiful UI for the sender and receiver's message bubles
-- [ ] Phase 2
-  - [ ] Join and have a talk in a chat room
+- [x] Phase 2
+  - [x] Join and have a talk in a chat room
+  - [ ] Automatically join all rooms displayed in the screen
+  - [ ] Create a new chat room
+  - [ ] When a new chat room is created, it will displayed in another clients
 - [ ] Phase 3
   - [ ] User auth (login) without using database
   - [ ] Beautiful UI for all users
