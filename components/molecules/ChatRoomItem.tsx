@@ -1,6 +1,8 @@
-import { Box, Flex, Heading } from '@chakra-ui/react';
+import { Flex } from '@chakra-ui/react';
 import React from 'react'
-import { ChatRoom } from '../../types';
+import { ChatRoom } from '../../types'
+import ProfilePicture from '../atoms/ProfilePicture';
+import ChatRoomItemDetails from './ChatRoomItemDetails';
 
 interface Props extends ChatRoom {
   join: (roomID: string) => void;
@@ -20,13 +22,8 @@ const ChatRoomItem: React.FC<Props> = ({ id, name, isActive, join }) => {
       }}
       onClick={() => join(id)}
     >
-      <Box
-        width="60px"
-        height="60px"
-        borderRadius="100%"
-        backgroundColor="mid"
-      ></Box>
-      <Heading size="sm" color="dark">{ name }</Heading>
+      <ProfilePicture />
+      <ChatRoomItemDetails name={ name } />
     </Flex>
   )
 }

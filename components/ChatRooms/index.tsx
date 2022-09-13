@@ -2,7 +2,7 @@ import { Stack } from '@chakra-ui/react'
 import React from 'react'
 import useRooms from '../../hooks/useRooms';
 import { ChatRoom } from '../../types'
-import ChatRoomItem from '../ChatRoomItem';
+import ChatRoomItem from '../molecules/ChatRoomItem';
 
 type Props = {
   rooms: ChatRoom[];
