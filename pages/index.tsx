@@ -9,6 +9,7 @@ import styles from '../styles/Home.module.css'
 import { SocketClient } from '../types';
 import MessageContainer from '../components/organisms/MessageContainer';
 import MessageHeader from '../components/molecules/MessageHeader';
+import ChatRoomsHeader from '../components/molecules/ChatRoomsHeader';
 
 type Props = {
   socket: SocketClient;
@@ -37,6 +38,7 @@ const Home: NextPage<Props> = ({ socket }) => {
               width="300px"
               borderRight="1px solid var(--chakra-colors-mid)"
             >
+              <ChatRoomsHeader />
               <ChatRooms rooms={ rooms } />
             </Box>
           )}
