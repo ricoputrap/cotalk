@@ -1,10 +1,12 @@
 import { Box, Button, Heading } from '@chakra-ui/react'
 import React from 'react'
 import { IoMdAdd } from "react-icons/io"
+import useCreateNewRoom from '../../hooks/useCreateNewRoom'
 import Header from '../atoms/Header.styles'
 import ProfilePicture from '../atoms/ProfilePicture'
 
 const ChatRoomsHeader: React.FC = () => {
+  const { openForm } = useCreateNewRoom();
   return (
     <Header>
       <Box
@@ -31,6 +33,7 @@ const ChatRoomsHeader: React.FC = () => {
             color="mid"
             paddingX="12px"
             borderRadius="100%"
+            onClick={ openForm }
           >
             <IoMdAdd />
           </Button>

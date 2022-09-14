@@ -26,6 +26,7 @@ export type ChatState = {
   messages: MessagePerRoom;
   activeRoomID: string;
   rooms: ChatRoom[];
+  isCreatingNewRoom: boolean;
 }
 
 export type MessageInRoom = {

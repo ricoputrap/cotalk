@@ -39,14 +39,26 @@ const slice = createSlice({
 
     joinRoom: (state, action: PayloadAction<string>) => {
       const rooms: Draft<ChatRoom>[] = Array.from(state.rooms);
-      const activeRoomIndex: number = rooms.findIndex(room => room.id === state.activeRoomID);
-      const newActiveRoomIndex: number = rooms.findIndex(room => room.id == action.payload);
+      let activeRoomID: string = action.payload;
 
+      const activeRoomIndex: number = rooms.findIndex(room => room.id === state.activeRoomID);
       rooms[activeRoomIndex].isActive = false;
-      rooms[newActiveRoomIndex].isActive = true;
+      
+      const newActiveRoomIndex: number = rooms.findIndex(room => room.id == action.payload);
+      if (newActiveRoomIndex !== -1)
+        rooms[newActiveRoomIndex].isActive = true;
+      else {
+        const newRoom: ChatRoom = {
+          id: (rooms.length + 1) + "",
+          name: action.payload,
+          isActive: true
+        };
+        rooms.push(newRoom);
+        activeRoomID = newRoom.id;
+      }
 
       state.rooms = rooms;
-      state.activeRoomID = action.payload;
+      state.activeRoomID = activeRoomID;
     },
 
     readMessage: (state, action: PayloadAction<MessageInRoom>) => {
@@ -60,11 +72,22 @@ const slice = createSlice({
         ...messages[messageIndex],
         isRead: true 
       }
+    },
+
+    openFormNewRoom: (state) => {
+      state.isCreatingNewRoom = true;
+    },
+    closeFormNewRoom: (state) => {
+      state.isCreatingNewRoom = false
     }
   }
 });
 
-export const { addMessageReceived, addMessageSent, joinRoom, readMessage } = slice.actions;
+export const { 
+  addMessageReceived, addMessageSent,
+  joinRoom, readMessage,
+  openFormNewRoom, closeFormNewRoom
+} = slice.actions;
 
 export const selectMessages = (state: RootState): Message[] => {
   const activeRoomID: string = state.messageReducer.activeRoomID;  
@@ -81,5 +104,6 @@ export const selectActiveRoom = (state: RootState): ChatRoom | undefined => {
 
   return activeRoom;
 }
+export const selectIsCreatingNewRoom = (state: RootState) => state.messageReducer.isCreatingNewRoom;
 
 export default slice.reducer;

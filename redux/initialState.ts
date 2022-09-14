@@ -12,6 +12,7 @@ const initialState: ChatState = {
     { id: "5", name: "Room 5", isActive: false },
     { id: "6", name: "Room 6", isActive: false },
   ],
+  isCreatingNewRoom: false
 }
 
 export default initialState;
