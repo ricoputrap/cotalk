@@ -71,8 +71,15 @@ export const selectMessages = (state: RootState): Message[] => {
   const messages: Message[] = state.messageReducer.messages[activeRoomID] || [];
   return messages;
 };
+
 export const selectRooms = (state: RootState) => state.messageReducer.rooms;
 export const selectActiveRoomID = (state: RootState) => state.messageReducer.activeRoomID;
 export const selectMessagePerRoom = (state: RootState) => state.messageReducer.messages;
+export const selectActiveRoom = (state: RootState): ChatRoom | undefined => {
+  const activeRoomID: string = state.messageReducer.activeRoomID;
+  const activeRoom: ChatRoom | undefined = state.messageReducer.rooms.find(room => room.id == activeRoomID);
+
+  return activeRoom;
+}
 
 export default slice.reducer;
