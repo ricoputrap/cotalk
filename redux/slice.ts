@@ -39,14 +39,26 @@ const slice = createSlice({
 
     joinRoom: (state, action: PayloadAction<string>) => {
       const rooms: Draft<ChatRoom>[] = Array.from(state.rooms);
-      const activeRoomIndex: number = rooms.findIndex(room => room.id === state.activeRoomID);
-      const newActiveRoomIndex: number = rooms.findIndex(room => room.id == action.payload);
+      let activeRoomID: string = action.payload;
 
+      const activeRoomIndex: number = rooms.findIndex(room => room.id === state.activeRoomID);
       rooms[activeRoomIndex].isActive = false;
-      rooms[newActiveRoomIndex].isActive = true;
+      
+      const newActiveRoomIndex: number = rooms.findIndex(room => room.id == action.payload);
+      if (newActiveRoomIndex !== -1)
+        rooms[newActiveRoomIndex].isActive = true;
+      else {
+        const newRoom: ChatRoom = {
+          id: (rooms.length + 1) + "",
+          name: action.payload,
+          isActive: true
+        };
+        rooms.push(newRoom);
+        activeRoomID = newRoom.id;
+      }
 
       state.rooms = rooms;
-      state.activeRoomID = action.payload;
+      state.activeRoomID = activeRoomID;
     },
 
     readMessage: (state, action: PayloadAction<MessageInRoom>) => {
