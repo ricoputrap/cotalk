@@ -8,6 +8,7 @@ import useRooms from '../hooks/useRooms';
 import styles from '../styles/Home.module.css'
 import { SocketClient } from '../types';
 import MessageContainer from '../components/organisms/MessageContainer';
+import MessageHeader from '../components/molecules/MessageHeader';
 
 type Props = {
   socket: SocketClient;
@@ -32,12 +33,18 @@ const Home: NextPage<Props> = ({ socket }) => {
       <main className={ styles.main }>
         <Box width="100%" height="100%" display="flex">
           {isLargerThan768 && (
-            <Box width="300px" >
+            <Box
+              width="300px"
+              borderRight="1px solid var(--chakra-colors-mid)"
+            >
               <ChatRooms rooms={ rooms } />
             </Box>
           )}
 
-          <MessageContainer socket={ socket } />
+          <Box flex={1}>
+            <MessageHeader />
+            <MessageContainer socket={ socket } />
+          </Box>
         </Box>
 
       </main>

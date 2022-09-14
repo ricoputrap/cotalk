@@ -13,9 +13,8 @@ const MessageContainer: React.FC<Props> = ({ socket }) => {
     <Flex
       direction="column"
       backgroundColor="background"
-      height="100%"
+      height="calc(100% - 80px)"
       padding="20px 20px 4px"
-      flex={1}
     >
       <MessageList />
 
