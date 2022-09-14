@@ -13,8 +13,8 @@ A simple chat app that allows you to talk to your coworkers even if you are sepa
 - [x] Phase 2
   - [x] Join and have a talk in a chat room
   - [x] Automatically join all rooms displayed in the screen
-- [ ] Phase 3
-  - [ ] Show total new messages
+- [x] Phase 3
+  - [x] Show total new messages
 - [ ] Phase 4
   - [ ] Create a new chat room
   - [ ] When a new chat room is created, it will displayed in another clients
