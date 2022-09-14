@@ -9,6 +9,7 @@ export type Message = {
   id: number;
   content: string;
   fromSender: boolean;
+  isRead: boolean;
 }
 
 export type MessagePerRoom = {
@@ -25,6 +26,11 @@ export type ChatState = {
   messages: MessagePerRoom;
   activeRoomID: string;
   rooms: ChatRoom[];
+}
+
+export type MessageInRoom = {
+  roomID: string;
+  messageID: number;
 }
 
 export type SocketClient = Socket | undefined;

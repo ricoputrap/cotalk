@@ -1,12 +1,15 @@
 import { Box } from '@chakra-ui/react';
 import React from 'react'
+import useReadMessage from '../../hooks/useReadMessage';
+import { Message } from '../../types';
 
-type Props = {
-  content: string;
-  fromSender: boolean;
+interface Props extends Message {
+  roomID: string;
 }
 
-const MessageItem: React.FC<Props> = ({ content, fromSender }) => {
+const MessageItem: React.FC<Props> = ({ id, content, fromSender, isRead, roomID }) => {
+  useReadMessage(roomID, id, isRead);
+
   return (
     <Box
       width="fit-content"
