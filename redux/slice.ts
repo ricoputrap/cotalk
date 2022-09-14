@@ -72,11 +72,22 @@ const slice = createSlice({
         ...messages[messageIndex],
         isRead: true 
       }
+    },
+
+    openFormNewRoom: (state) => {
+      state.isCreatingNewRoom = true;
+    },
+    closeFormNewRoom: (state) => {
+      state.isCreatingNewRoom = false
     }
   }
 });
 
-export const { addMessageReceived, addMessageSent, joinRoom, readMessage } = slice.actions;
+export const { 
+  addMessageReceived, addMessageSent,
+  joinRoom, readMessage,
+  openFormNewRoom, closeFormNewRoom
+} = slice.actions;
 
 export const selectMessages = (state: RootState): Message[] => {
   const activeRoomID: string = state.messageReducer.activeRoomID;  
@@ -93,5 +104,6 @@ export const selectActiveRoom = (state: RootState): ChatRoom | undefined => {
 
   return activeRoom;
 }
+export const selectIsCreatingNewRoom = (state: RootState) => state.messageReducer.isCreatingNewRoom;
 
 export default slice.reducer;

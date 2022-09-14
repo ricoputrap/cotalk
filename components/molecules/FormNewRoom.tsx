@@ -5,12 +5,14 @@ import { FaTimes } from "react-icons/fa"
 import { useAppDispatch } from '../../redux/hooks';
 import { joinRoom } from '../../redux/slice';
 import { SocketClient } from '../../types';
+import useCreateNewRoom from '../../hooks/useCreateNewRoom';
 
 type Props = {
   socket: SocketClient;
 }
 
 const FormNewRoom: React.FC<Props> = ({ socket }) => {
+  const { closeForm } = useCreateNewRoom();
   const dispatch = useAppDispatch();
   const [name, setName] = useState<string>("");
 
@@ -29,6 +31,8 @@ const FormNewRoom: React.FC<Props> = ({ socket }) => {
 
     // close this component or reset the `name` value
     setName("");
+
+    closeForm();
   }
 
   return (
@@ -55,6 +59,7 @@ const FormNewRoom: React.FC<Props> = ({ socket }) => {
         icon={<FaTimes />}
         size="md"
         color="mid"
+        onClick={ closeForm }
       />
     </Box>
   )
