@@ -40,6 +40,8 @@ const Home: NextPage<Props> = ({ socket }) => {
             <Box
               width="300px"
               borderRight="1px solid var(--chakra-colors-mid)"
+              display="flex"
+              flexDir="column"
             >
               <ChatRoomsHeader />
               

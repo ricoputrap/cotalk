@@ -13,7 +13,7 @@ const ChatRoomsHeader: React.FC = () => {
         display="flex"
         alignItems="center"
         justifyContent="space-between"
-        height="100%"
+        height="inherit"
         paddingX="30px"
       >
         <Box
