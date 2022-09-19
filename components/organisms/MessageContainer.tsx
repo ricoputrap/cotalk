@@ -1,14 +1,9 @@
 import { Flex } from '@chakra-ui/react';
 import React from 'react'
-import { SocketClient } from '../../types'
 import ComposeBox from '../molecules/ComposeBox';
 import MessageList from './MessageList';
 
-type Props = {
-  socket: SocketClient;
-}
-
-const MessageContainer: React.FC<Props> = ({ socket }) => {
+const MessageContainer: React.FC = () => {
   return (
     <Flex
       direction="column"
@@ -18,7 +13,7 @@ const MessageContainer: React.FC<Props> = ({ socket }) => {
     >
       <MessageList />
 
-      <ComposeBox socket={socket} />
+      <ComposeBox />
     </Flex>
   )
 }

@@ -1,15 +1,13 @@
 import { Box, Button, Input, InputGroup, InputRightElement } from '@chakra-ui/react'
 import React, { useState } from 'react'
+import { AiOutlineSend } from "react-icons/ai";
+import { Socket } from 'socket.io-client';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { addMessageSent, selectActiveRoomID } from '../../redux/slice';
-import { SocketClient } from '../../types';
-import { AiOutlineSend } from "react-icons/ai";
+import SocketClient from '../../client/socket';
 
-type Props = {
-  socket: SocketClient;
-}
 
-const ComposeBox: React.FC<Props> = ({ socket }) => {
+const ComposeBox: React.FC = () => {
 
   const dispatch = useAppDispatch();
   const activeRoomID: string = useAppSelector(selectActiveRoomID);
@@ -17,7 +15,8 @@ const ComposeBox: React.FC<Props> = ({ socket }) => {
 
   const sendMessage = (event: React.SyntheticEvent) => {
     event.preventDefault();
-
+    
+    const socket: Socket = SocketClient.getInstance();
     if (!socket) return;
 
     socket.emit("send_message", {

@@ -6,20 +6,16 @@ import ChatRooms from "../components/organisms/ChatRooms";
 import useReceiveMessage from '../hooks/useReceiveMessage';
 import useRooms from '../hooks/useRooms';
 import styles from '../styles/Home.module.css'
-import { SocketClient } from '../types';
 import MessageContainer from '../components/organisms/MessageContainer';
 import MessageHeader from '../components/molecules/MessageHeader';
 import ChatRoomsHeader from '../components/molecules/ChatRoomsHeader';
 import FormNewRoom from '../components/molecules/FormNewRoom';
 import useCreateNewRoom from '../hooks/useCreateNewRoom';
 
-type Props = {
-  socket: SocketClient;
-}
+const Home: NextPage = () => {
 
-const Home: NextPage<Props> = ({ socket }) => {
-  useReceiveMessage(socket);
-  const { rooms } = useRooms(socket);
+  useReceiveMessage();
+  const { rooms } = useRooms();
   const { isCreatingNewRoom } = useCreateNewRoom();
   const [isLargerThan768] = useMediaQuery("(min-width: 768px)");
 
@@ -47,7 +43,7 @@ const Home: NextPage<Props> = ({ socket }) => {
               
               {isCreatingNewRoom && (
                 <Box borderBottom="1px solid var(--chakra-colors-mid)">
-                  <FormNewRoom socket={ socket } />
+                  <FormNewRoom />
                 </Box>
               )}
 
@@ -57,7 +53,7 @@ const Home: NextPage<Props> = ({ socket }) => {
 
           <Box flex={1}>
             <MessageHeader />
-            <MessageContainer socket={ socket } />
+            <MessageContainer />
           </Box>
         </Box>
 

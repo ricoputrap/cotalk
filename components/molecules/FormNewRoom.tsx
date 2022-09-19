@@ -2,16 +2,14 @@ import { Box, IconButton, Input } from '@chakra-ui/react'
 import React, { useState } from 'react'
 import { IoMdCheckmark } from "react-icons/io"
 import { FaTimes } from "react-icons/fa"
+import { Socket } from 'socket.io-client';
 import { useAppDispatch } from '../../redux/hooks';
 import { joinRoom } from '../../redux/slice';
-import { SocketClient } from '../../types';
 import useCreateNewRoom from '../../hooks/useCreateNewRoom';
+import SocketClient from '../../client/socket';
 
-type Props = {
-  socket: SocketClient;
-}
 
-const FormNewRoom: React.FC<Props> = ({ socket }) => {
+const FormNewRoom: React.FC = () => {
   const { closeForm } = useCreateNewRoom();
   const dispatch = useAppDispatch();
   const [name, setName] = useState<string>("");
@@ -22,12 +20,15 @@ const FormNewRoom: React.FC<Props> = ({ socket }) => {
 
   const createNewRoom = (): void => {
     if (name == "") return;
+    
+    const socket: Socket = SocketClient.getInstance();
+    if (!socket) return;
 
     // save it to store -> will display it on the screen
     dispatch(joinRoom(name));
 
     // send it to socket server
-    socket?.emit("join_room", name);
+    socket.emit("join_room", name);
 
     // close this component or reset the `name` value
     setName("");
