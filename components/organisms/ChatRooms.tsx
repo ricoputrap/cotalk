@@ -5,11 +5,11 @@ import { ChatRoom } from '../../types'
 import ChatRoomItem from '../molecules/ChatRoomItem';
 
 type Props = {
-  rooms: ChatRoom[];
+  initialRooms: ChatRoom[];
 }
 
-const ChatRooms: React.FC<Props> = ({ rooms }) => {
-  const { joinRoom } = useRooms();
+const ChatRooms: React.FC<Props> = ({ initialRooms }) => {
+  const { rooms, joinRoom } = useRooms(initialRooms);
 
   return (
     <Stack rowGap={0} padding="20px" overflowY="scroll">

@@ -1,21 +1,23 @@
 import { Box, useMediaQuery } from '@chakra-ui/react';
-import type { NextPage } from 'next'
+import type { GetServerSideProps, NextPage } from 'next'
 import Head from 'next/head'
 import React from 'react';
 import ChatRooms from "../components/organisms/ChatRooms";
 import useReceiveMessage from '../hooks/useReceiveMessage';
-import useRooms from '../hooks/useRooms';
 import styles from '../styles/Home.module.css'
 import MessageContainer from '../components/organisms/MessageContainer';
 import MessageHeader from '../components/molecules/MessageHeader';
 import ChatRoomsHeader from '../components/molecules/ChatRoomsHeader';
 import FormNewRoom from '../components/molecules/FormNewRoom';
 import useCreateNewRoom from '../hooks/useCreateNewRoom';
+import { ChatRoom } from '../types';
 
-const Home: NextPage = () => {
+type Props = {
+  initialRooms: ChatRoom[];
+}
 
+const Home: NextPage<Props> = ({ initialRooms }) => {
   useReceiveMessage();
-  const { rooms } = useRooms();
   const { isCreatingNewRoom } = useCreateNewRoom();
   const [isLargerThan768] = useMediaQuery("(min-width: 768px)");
 
@@ -47,7 +49,7 @@ const Home: NextPage = () => {
                 </Box>
               )}
 
-              <ChatRooms rooms={ rooms } />
+              <ChatRooms initialRooms={ initialRooms } />
             </Box>
           )}
 
@@ -64,6 +66,21 @@ const Home: NextPage = () => {
       </footer>
     </div>
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  const SOCKET_HOST: string = process.env.NEXT_PUBLIC_SOCKET_SERVER || "";
+  try {
+    const res: Response = await fetch(SOCKET_HOST + "/rooms");
+    const initialRooms: ChatRoom[] = await res.json();
+
+    return {
+      props: { initialRooms }
+    }
+  }
+  catch (err: any) {
+    throw err;
+  }
 }
 
 export default Home

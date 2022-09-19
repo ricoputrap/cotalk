@@ -1,4 +1,6 @@
 import { createSlice, Draft, PayloadAction } from "@reduxjs/toolkit";
+import { Socket } from "socket.io-client";
+import SocketClient from "../client/socket";
 import { ChatRoom, Message, MessageInRoom, MessageSent } from "../types";
 import initialState from "./initialState";
 import { RootState } from "./store";
@@ -40,6 +42,9 @@ const slice = createSlice({
     joinRoom: (state, action: PayloadAction<string>) => {
       const rooms: Draft<ChatRoom>[] = Array.from(state.rooms);
       let activeRoomID: string = action.payload;
+      
+      const socket: Socket = SocketClient.getInstance();
+      socket.emit("join_room", activeRoomID);
 
       const activeRoomIndex: number = rooms.findIndex(room => room.id === state.activeRoomID);
       rooms[activeRoomIndex].isActive = false;
@@ -59,6 +64,22 @@ const slice = createSlice({
 
       state.rooms = rooms;
       state.activeRoomID = activeRoomID;
+    },
+
+    setRooms: (state, action: PayloadAction<ChatRoom[]>) => {
+      const rooms: ChatRoom[] = action.payload.map(room => ({
+        ...room,
+        isActive: false
+      }));
+
+      // init a socket connection to all joined rooms
+      // all joined rooms will be displayed on the screen
+      const socket: Socket = SocketClient.getInstance();
+      socket.emit("join_rooms", rooms.map(room => room.id));
+
+      rooms[0].isActive = true;
+      state.rooms = rooms;
+      state.activeRoomID = rooms[0].id;
     },
 
     readMessage: (state, action: PayloadAction<MessageInRoom>) => {
@@ -85,7 +106,7 @@ const slice = createSlice({
 
 export const { 
   addMessageReceived, addMessageSent,
-  joinRoom, readMessage,
+  joinRoom, setRooms, readMessage,
   openFormNewRoom, closeFormNewRoom
 } = slice.actions;
 
