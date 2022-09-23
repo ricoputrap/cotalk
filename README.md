@@ -3,6 +3,7 @@ A simple chat app that allows you to talk to your coworkers even if you are sepa
 
 ### Tech Stack
 - Next JS
+- Chakra UI
 - Socket.io
 - TypeScript
 
